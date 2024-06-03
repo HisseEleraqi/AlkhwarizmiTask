@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <h2>Manage Nodes</h2>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="mb-3">
+        <form [formGroup]="searchForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Search Nodes</mat-label>
+            <input matInput formControlName="search">
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="mat-elevation-z8">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="custom-tree">
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <div class="tree-node-content">
+              <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              <span>{{node.name}}</span>
+              <span class="node-id">ID: {{node.id}}</span>
+              <span class="node-parent-id">Parent ID: {{node.parentId}}</span>
+              <button mat-icon-button color="primary" (click)="openAddNodeDialog(node)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="openUpdateNodeDialog(node)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="confirmDeleteNode(node)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-tree-node>
+          <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+            <div class="mat-tree-node tree-node-content">
+              <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              <span>{{node.name}}</span>
+              <span class="node-id">ID: {{node.id}}</span>
+              <span class="node-parent-id">Parent ID: {{node.parentId}}</span>
+              <button mat-icon-button color="primary" (click)="openAddNodeDialog(node)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="openUpdateNodeDialog(node)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="confirmDeleteNode(node)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+              <ng-container matTreeNodeOutlet></ng-container>
+            </div>
+          </mat-nested-tree-node>
+        </mat-tree>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Actions
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary mb-3" (click)="openAddNodeDialog()">Add Root Node</button>
+          <div *ngIf="selectedAction">
+            <app-add-node *ngIf="selectedAction === 'add'" [parentId]="selectedParentId"
+              (nodeAdded)="refreshNodes()"></app-add-node>
+            <app-update-node *ngIf="selectedAction === 'update'" [node]="selectedNode!"
+              (nodeUpdated)="refreshNodes()"></app-update-node>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+.container-fluid {
+  margin-top: 20px;
+}
+
+.custom-tree {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.tree-node-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tree-node-content:last-child {
+  border-bottom: none;
+}
+
+.node-id,
+.node-parent-id {
+  margin-left: 10px;
+  font-style: italic;
+}
+
+.mat-elevation-z8 {
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.example-tree-invisible {
+  display: none;
+}

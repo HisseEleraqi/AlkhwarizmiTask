@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Update Node</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="nodeForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="id" class="form-label">Node ID</label>
+        <input type="text" id="id" class="form-control" formControlName="id" />
+        <div *ngIf="nodeForm.get('id')?.invalid && nodeForm.get('id')?.touched" class="text-danger">
+          Node ID is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Node Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name" />
+        <div *ngIf="nodeForm.get('name')?.invalid && nodeForm.get('name')?.touched" class="text-danger">
+          Node Name is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="parentId" class="form-label">Parent ID</label>
+        <input type="text" id="parentId" class="form-control" formControlName="parentId" />
+      </div>
+      <div formArrayName="children">
+        <div *ngFor="let child of children.controls; let i = index" [formGroupName]="i" class="card mt-3">
+          <div class="card-header">
+            <h4>Child Node {{ i + 1 }}</h4>
+            <button type="button" class="btn btn-danger btn-sm float-end" (click)="removeChild(i)">Remove Child</button>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="child-id-{{ i }}" class="form-label">Child Node ID</label>
+              <input type="text" id="child-id-{{ i }}" class="form-control" formControlName="id" />
+              <div *ngIf="child.get('id')?.invalid && child.get('id')?.touched" class="text-danger">
+                Child Node ID is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="child-name-{{ i }}" class="form-label">Child Node Name</label>
+              <input type="text" id="child-name-{{ i }}" class="form-control" formControlName="name" />
+              <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-danger">
+                Child Node Name is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="child-parentId-{{ i }}" class="form-label">Parent ID</label>
+              <input type="text" id="child-parentId-{{ i }}" class="form-control" formControlName="parentId" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary mt-3" (click)="addChild()">Add Child Node</button>
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="nodeForm.invalid">Update Node</button>
+    </form>
+  </div>
+</div>

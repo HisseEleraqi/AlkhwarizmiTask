@@ -1,0 +1,8 @@
+<form [formGroup]="nodeForm" (ngSubmit)="onSubmit()">
+  <h3>Delete Node</h3>
+  <div class="mb-3">
+    <label for="id" class="form-label">Node ID</label>
+    <input type="text" id="id" class="form-control" formControlName="id" />
+  </div>
+  <button type="submit" class="btn btn-danger">Delete Node</button>
+</form>
